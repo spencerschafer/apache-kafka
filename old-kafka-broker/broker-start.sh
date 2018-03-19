@@ -10,8 +10,6 @@ cat /kafka/config/kafka-server.properties | sed \
     -e "s|{{INTERNAL_IP}}|$INTERNAL_IP|g" \
     -e "s|{{KAFKA_NUM_PARTITIONS}}|$KAFKA_NUM_PARTITIONS|g" \
     -e "s|{{ZOOKEEPER_CONNECTION_STRING}}|$ZOOKEEPER_CONNECTION_STRING|g" \
-    -e "s|{{OFFSETS_REPLICATION_FACTOR}}|$OFFSETS_REPLICATION_FACTOR|g" \
-    -e "s|{{LOG_REPLICATION_FACTOR}}|$LOG_REPLICATION_FACTOR|g" \
 > /kafka/config/server.properties
 
 if [ -z $KAFKA_JMX_OPTS ]; then

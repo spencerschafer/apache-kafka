@@ -54,6 +54,8 @@ ADD config/zookeeper.properties /zookeeper/config/kafka-zookeeper.properties
 ADD zookeeper-start.sh /zookeeper-start.sh
 RUN chmod +x /zookeeper-start.sh
 
+RUN adduser -D -u 1000 zookeeper && chown -R zookeeper:zookeeper /zookeeper
+USER zookeeper
 WORKDIR /zookeeper
 
 CMD ["/bin/bash", "/zookeeper-start.sh"]

@@ -49,9 +49,6 @@ ENV KAFKA_PORT 9092
 ENV EXTERNAL_PORT 32400
 ENV INTERNAL_IP kafka-broker0-svc
 ENV KAFKA_NUM_PARTITIONS 1
-ENV OFFSETS_REPLICATION_FACTOR 1
-ENV LOG_REPLICATION_FACTOR 1
-ENV JMX_PORT 7203
 #ENV ZOOKEEPER_CONNECTION_STRING
 
 RUN rm -rf /kafka/config/server.properties
@@ -60,6 +57,11 @@ ADD config/server.properties /kafka/config/kafka-server.properties
 ADD broker-start.sh /broker-start.sh
 RUN chmod +x /broker-start.sh
 
+# Set up a user to run Kafka
+RUN adduser -D -u 1000 kafka && chown -R kafka:kafka /kafka /data /logs
+USER kafka
 WORKDIR /kafka
+
+VOLUME ["/data", "/logs"]
 
 CMD "/bin/bash" "/broker-start.sh"
